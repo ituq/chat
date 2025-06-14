@@ -8,18 +8,43 @@
 #include "ChatWindow.h"
 #include "ChatBubble.h"
 
-int main(int argc, char *argv[]){
+int main(int argc, char* argv[]){
     QApplication app(argc, argv);
     QMainWindow window;
     window.setWindowTitle("Chat");
     QWidget* central = new QWidget;
-    QSplitter *splitter = new QSplitter(Qt::Horizontal);
+    QSplitter* splitter = new QSplitter(Qt::Horizontal);
 
-    QListWidget *leftPanel = new QListWidget();
-    leftPanel->addItem("Navigation Item 1");
-    leftPanel->addItem("Navigation Item 2");
+    QListWidget* leftPanel = new QListWidget();
+    leftPanel->setStyleSheet(R"(
+            QListWidget {
+                background-color: palette(base);
+                padding: 5px;
+                outline: none;
+                color: palette(text);
+            }
 
-    ChatWindow *rightPanel = new ChatWindow();
+            QListWidget::item {
+                background-color: transparent;
+                padding: 12px;
+                border-radius: 6px;
+                color: palette(text);
+                border: 1px solid transparent;
+            }
+
+            QListWidget::item:selected {
+                background-color: palette(highlight);
+                color: palette(highlighted-text);
+            }
+
+            QListWidget::item:selected:hover {
+                background-color: palette(highlight);
+            }
+        )");
+    leftPanel->addItem("Chat 1");
+    leftPanel->addItem("Chat 2");
+
+    ChatWindow* rightPanel = new ChatWindow();
 
     splitter->addWidget(leftPanel);
     splitter->addWidget(rightPanel);
@@ -27,7 +52,7 @@ int main(int argc, char *argv[]){
     leftPanel->setMinimumWidth(100);
     rightPanel->setMinimumWidth(200);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(splitter);
     layout->setContentsMargins(0, 0, 0, 0);
     central->setLayout(layout);

@@ -10,7 +10,7 @@ class ChatBubble : public QWidget {
 public:
     enum BubbleType { Sent, Received };
 
-    ChatBubble(const QString &message, BubbleType type, QWidget *parent = nullptr);
+    ChatBubble(const QString &message, BubbleType type, QWidget* parent = nullptr);
 
 private:
     QString m_message;
